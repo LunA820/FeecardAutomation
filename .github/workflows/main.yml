@@ -3,24 +3,28 @@ name: Deploy Lambda Function
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'Lambda-FeecardUpload/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Install zip tool
-        uses: montudor/action-zip@v1
-      - name: Create Zip file for Lambda function
-        run: zip -r code.zip .
-      - name: AWS CLI v2
-        uses: imehedi/actions-awscli-v2@latest
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Zip Lambda code
+        run: |
+          cd Lambda-FeecardUpload
+          zip -r ../lambda.zip .
+
+      - name: Deploy to AWS Lambda using ARN
+        uses: aws-actions/aws-cli-action@v1
         with:
-          args: "lambda update-function-code \
-            --function-name arn:aws:lambda:ap-southeast-2:357598733564:function:FeecardUpload
-            --zip-file fileb://code.zip"
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "ap-souteast-2"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-2
+          args: lambda update-function-code \
+            --function-name arn:aws:lambda:ap-southeast-2:357598733564:function:FeecardUpload \
+            --zip-file fileb://lambda.zip
