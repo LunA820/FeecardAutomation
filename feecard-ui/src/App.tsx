@@ -24,6 +24,9 @@ function App() {
         <p>
           Automate the feecard release process
         </p>
+        <p>
+          Hi there! Deploy to test the CI/CD!
+        </p>
       </div>
       <p className="read-the-docs">
         Work in Progress
