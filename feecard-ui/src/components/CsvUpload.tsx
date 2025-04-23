@@ -44,6 +44,7 @@ const CsvUpload = () => {
       <button onClick={submitCsv} disabled={!csvFile}>
         Submit
       </button>
+      <p>{uploadStatus}</p>
     </div>
   );
 };
