@@ -6,13 +6,32 @@ s3 = boto3.client('s3')
 
 BUCKET_NAME = 'feecards'
 INDEX_KEY = 'index.json'
+header = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST,OPTIONS"
+}
 
 def lambda_handler(event, context):
+
+    if event.get("requestContext", {}).get("http", {}).get("method") == "OPTIONS":
+        return {
+            "statusCode": 200,
+            "headers": header,
+            "body": ""
+        }
 
     print("EVENT:", json.dumps(event))
 
     # Parse csv to json
     raw_csv = event["body"]
+    raw_csv = event.get("body")
+    if raw_csv is None:
+        return {
+            "statusCode": 400,
+            "headers": header,
+            "body": json.dumps({"error": "Missing CSV body in request"})
+        }
     feecard_json = json.dumps(parse_csv_matrix(raw_csv))
 
     # Get the greatest index
@@ -46,5 +65,6 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
+        "headers": header,
         'body': json.dumps({'feecardId': new_id, 'message': 'Feecard uploaded successfully'})
     }
