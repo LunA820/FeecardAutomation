@@ -25,7 +25,13 @@ const CsvUpload = () => {
           }
         }
       );
-      setUploadStatus(`Feecard upload success!`);
+
+      if (response.status !== 200) {
+        setUploadStatus(`Fail to upload feecard, please make sure that you upload a valid template.`);
+      }
+      else{
+        setUploadStatus(`Feecard upload success!`);
+      }
       setCsvFile(null);
     } catch (error: any) {
       setUploadStatus(`Fail to upload feecard, please make sure that you upload a valid template.`);
