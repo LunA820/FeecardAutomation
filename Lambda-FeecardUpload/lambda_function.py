@@ -8,6 +8,9 @@ BUCKET_NAME = 'feecards'
 INDEX_KEY = 'index.json'
 
 def lambda_handler(event, context):
+
+    print("EVENT:", json.dumps(event))
+
     # Parse csv to json
     raw_csv = event["body"]
     feecard_json = json.dumps(parse_csv_matrix(raw_csv))
