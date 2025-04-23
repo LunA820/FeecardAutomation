@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import './CsvUpload.css'
 
 const CsvUpload = () => {
   const [csvFile, setCsvFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const submitEndpoint = 'https://l3ru6jv343.execute-api.ap-southeast-2.amazonaws.com/default/FeecardUpload'
+  const submitEndpoint = 'https://l3ru6jv343.execute-api.ap-southeast-2.amazonaws.com/default/FeecardUpload';
 
   const submitCsv = async () => {
     if (!csvFile) return;
@@ -23,9 +25,11 @@ const CsvUpload = () => {
           }
         }
       );
-      setUploadStatus(`Success: ${response.status}`);
+      setUploadStatus(`Feecard upload success!`);
+      setCsvFile(null);
     } catch (error: any) {
-      setUploadStatus(`Error: ${error.message}`);
+      setUploadStatus(`Fail to upload feecard, please make sure that you upload a valid template.`);
+      setCsvFile(null);
     }
   };
 
@@ -33,18 +37,46 @@ const CsvUpload = () => {
     const file = e.target.files?.[0];
     if (file) {
       setCsvFile(file);
-      console.log('Uploaded CSV file:', file.name);
+      setUploadStatus(null);
     }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type === 'text/csv') {
+      setCsvFile(file);
+      setUploadStatus(null);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
   };
 
   return (
     <div>
-      <p>Upload your feecard template in CSV format.</p>
-      <input type="file" accept=".csv" onChange={uploadCsv} />
+      <div
+        className="upload-dropzone"
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <p>{csvFile ? csvFile.name : 'Drag & drop CSV here, or click to browse'}</p>
+        <input
+          type="file"
+          accept=".csv"
+          ref={fileInputRef}
+          onChange={uploadCsv}
+          style={{ display: 'none' }}
+        />
+      </div>
+
       <button onClick={submitCsv} disabled={!csvFile}>
         Submit
       </button>
-      <p>{uploadStatus}</p>
+
+      {uploadStatus && <p className="upload-status">{uploadStatus}</p>}
     </div>
   );
 };
