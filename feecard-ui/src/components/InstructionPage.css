@@ -1,0 +1,51 @@
+.instruction-container {
+    padding: 2rem;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+}
+
+.instruction-container h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.instruction-container h3 {
+    color: #ffffff;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.instruction-container ul {
+    padding-left: 1.5rem;
+}
+
+.instruction-container li {
+    margin-bottom: 0.5rem;
+    color: #cccccc;
+}
+
+.csv-example {
+    background-color: #222;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    color: #aaffaa;
+    overflow-x: auto;
+}
+
+.instruction-note {
+    margin-top: 1.5rem;
+    font-style: italic;
+    color: #999;
+}
+
+.section-divider {
+    width: 70vw;
+    height: 3px;
+    background-color: #66ff99;
+    /* same light green for consistency */
+    margin: 1rem 0 1.5rem;
+    border-radius: 4px;
+}

@@ -1,0 +1,36 @@
+.dashboard-text {
+    padding: 2rem;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+}
+
+.dashboard-text h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.dashboard-text ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.dashboard-text li {
+    margin-bottom: 0.5rem;
+    color: #cccccc;
+}
+
+.dashboard-note {
+    margin-top: 1.5rem;
+    font-style: italic;
+    color: #999;
+}
+
+.section-divider {
+    width: 70vw;
+    height: 3px;
+    background-color: #09a73d;
+    margin: 1rem 0 1.5rem;
+    border-radius: 4px;
+}

@@ -7,7 +7,7 @@ const CsvUpload = () => {
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const submitEndpoint = 'https://l3ru6jv343.execute-api.ap-southeast-2.amazonaws.com/default/FeecardUpload';
+  const submitEndpoint = 'https://nmji2zb182.execute-api.ap-southeast-2.amazonaws.com/FeecardAPI/FeecardUpload';
 
   const submitCsv = async () => {
     if (!csvFile) return;

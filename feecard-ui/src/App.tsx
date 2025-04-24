@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, NavLink } from 'react-router-dom';
-import DashboardPage from './components/DashboardPage';
+import HomePage from './components/HomePage';
 import TemplateUploadPage from './components/TemplateUploadPage';
+import FeecardReviewPage from './components/FeecardReviewPage';
 import './App.css';
+import InstructionPage from './components/InstructionPage';
 
 function App() {
   return (
@@ -12,10 +14,18 @@ function App() {
           <ul className="nav-links">
             <li>
               <NavLink 
-                to="/dashboard" 
+                to="/home" 
                 className={({ isActive }) => isActive ? "active-link" : ""}
               >
-                Dashboard
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/instruction" 
+                className={({ isActive }) => isActive ? "active-link" : ""}
+              >
+                Instruction
               </NavLink>
             </li>
             <li>
@@ -26,14 +36,24 @@ function App() {
                 Upload Template
               </NavLink>
             </li>
+            <li>
+              <NavLink 
+                to="/review" 
+                className={({ isActive }) => isActive ? "active-link" : ""}
+              >
+                Review Feecard
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
         <main className="main-content">
           <Routes>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/instruction" element={<InstructionPage />} />
             <Route path="/upload" element={<TemplateUploadPage />} />
+            <Route path="/review" element={<FeecardReviewPage />} />
           </Routes>
         </main>
       </div>
