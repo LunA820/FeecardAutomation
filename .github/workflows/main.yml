@@ -1,51 +1,30 @@
-name: Deploy Lambda Functions
+name: Deploy Lambda Function
 
 on:
   push:
     branches: [ main ]
     paths:
       - 'Lambda-FeecardUpload/**'
-      - 'Lambda-FeecardDownload/**'
 
 jobs:
-  deploy-upload:
-    if: contains(github.event.head_commit.message, 'Lambda-FeecardUpload') || 
-        github.event_name == 'push' && (
-          contains(join(github.event.commits.*.modified, ','), 'Lambda-FeecardUpload/') ||
-          contains(join(github.event.commits.*.added, ','), 'Lambda-FeecardUpload/')
-        )
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - run: |
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Zip Lambda code
+        run: |
           cd Lambda-FeecardUpload
-          zip -r ../lambda-upload.zip .
-      - run: |
+          zip -r ../lambda.zip .
+
+      - name: Deploy to AWS Lambda using AWS CLI
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-southeast-2
+        run: |
           aws lambda update-function-code \
             --function-name arn:aws:lambda:ap-southeast-2:357598733564:function:FeecardUpload \
-            --zip-file fileb://lambda-upload.zip
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-southeast-2
-
-  deploy-download:
-    if: contains(github.event.head_commit.message, 'Lambda-FeecardDownload') || 
-        github.event_name == 'push' && (
-          contains(join(github.event.commits.*.modified, ','), 'Lambda-FeecardDownload/') ||
-          contains(join(github.event.commits.*.added, ','), 'Lambda-FeecardDownload/')
-        )
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-          cd Lambda-FeecardDownload
-          zip -r ../lambda-download.zip .
-      - run: |
-          aws lambda update-function-code \
-            --function-name arn:aws:lambda:ap-southeast-2:357598733564:function:FeecardDownload \
-            --zip-file fileb://lambda-download.zip
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ap-southeast-2
+            --zip-file fileb://lambda.zip
