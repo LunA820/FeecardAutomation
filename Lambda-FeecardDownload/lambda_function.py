@@ -41,7 +41,7 @@ def lambda_handler(event, context):
 
     return {
         'statusCode': 200,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
         'headers': header,
         'body': latest_content
     }
