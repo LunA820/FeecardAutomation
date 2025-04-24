@@ -1,0 +1,30 @@
+name: Deploy Lambda Function
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Lambda-FeecardDownload/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Zip Lambda code
+        run: |
+          cd Lambda-FeecardDownload
+          zip -r ../lambda.zip .
+
+      - name: Deploy to AWS Lambda using AWS CLI
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-southeast-2
+        run: |
+          aws lambda update-function-code \
+            --function-name arn:aws:lambda:ap-southeast-2:357598733564:function:FeecardDownload \
+            --zip-file fileb://lambda.zip
