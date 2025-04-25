@@ -13,7 +13,7 @@ header = {
 }
 
 def lambda_handler(event, context):
-
+    # test direct commit
     if event.get("requestContext", {}).get("http", {}).get("method") == "OPTIONS":
         return {
             "statusCode": 200,
