@@ -1,28 +1,42 @@
 .review-container {
-    padding: 20px;
-    color: #fff;
-    font-size: 16px;
-  }
-  
-  .section {
-    margin-bottom: 24px;
-  }
-  
-  .section-title {
-    font-weight: bold;
-    margin-bottom: 6px;
-  }
-  
-  .data-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .data-item {
-    background-color: #333;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-family: monospace;
-  }
-  
+  padding: 20px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.data-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.data-button {
+  background-color: #444;
+  color: #fff;
+  padding: 6px 12px;
+  margin: 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Segoe UI', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.data-button:hover {
+  background-color: #666;
+}
+
+.data-button.selected {
+  background-color: #4fc3f7;
+  color: #000;
+  font-weight: bold;
+}

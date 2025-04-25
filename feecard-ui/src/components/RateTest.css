@@ -1,0 +1,22 @@
+.rate-test-container {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    background-color: #1e1e1e;
+    border-left: 4px solid #4fc3f7;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .rate-test-label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+  }
+  
+  .rate-test-result {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #4fc3f7;
+  }
+  
