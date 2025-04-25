@@ -14,7 +14,7 @@ const RateTest = (props: { term: number | null, creditCategory: string | null, f
         With the selected term and Credit category, interest rate should be:
       </div>
       <div className="rate-test-result">
-        {rateMatch !== undefined ? rateMatch : '-'}
+        {rateMatch !== undefined ? rateMatch : '-'}%
       </div>
     </div>
   );
