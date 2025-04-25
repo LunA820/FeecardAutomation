@@ -8,7 +8,7 @@ BUCKET_NAME = 'feecards'
 INDEX_KEY = 'index.json'
 header = {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type,x-api-key",
     "Access-Control-Allow-Methods": "POST,OPTIONS"
 }
 
@@ -21,7 +21,16 @@ def lambda_handler(event, context):
             "body": ""
         }
 
-    print("EVENT:", json.dumps(event))
+     # 🔐 Check x-api-key
+    headers_in = {k.lower(): v for k, v in event.get("headers", {}).items()}
+    api_key = headers_in.get("x-api-key")
+
+    if api_key != 'happycoding1988':
+        return {
+            "statusCode": 403,
+            "headers": header,
+            "body": json.dumps({"error": "Forbidden: Invalid or missing API key"})
+        }
 
     # Parse csv to json
     raw_csv = event["body"]
