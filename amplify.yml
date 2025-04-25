@@ -1,0 +1,20 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Checking if feecard-ui has changed..."
+        - |
+          if [ $(git rev-list --count HEAD) -lt 2 ]; then
+            echo "No previous commit — skipping diff check."
+          elif git diff --quiet HEAD^ HEAD -- ./feecard-ui; then
+            echo "No changes in feecard-ui. Skipping build."
+            exit 0
+          fi
+        - cd feecard-ui
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: feecard-ui/dist
