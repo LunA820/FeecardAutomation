@@ -13,7 +13,6 @@ header = {
 }
 
 def lambda_handler(event, context):
-
     if event.get("requestContext", {}).get("http", {}).get("method") == "OPTIONS":
         return {
             "statusCode": 200,
@@ -21,7 +20,7 @@ def lambda_handler(event, context):
             "body": ""
         }
 
-     # 🔐 Check x-api-key
+     # 🔐 Check with x-api-key
     headers_in = {k.lower(): v for k, v in event.get("headers", {}).items()}
     api_key = headers_in.get("x-api-key")
 
