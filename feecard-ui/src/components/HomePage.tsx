@@ -3,7 +3,7 @@ import './HomePage.css';
 const HomePage = () => {
   return (
     <div className="dashboard-text">
-      <h1>Feecard Automation Dashboard</h1>
+      <h1 className="page-title">Feecard Automation UI</h1>
       <div className="section-divider"></div>
       <p>
         Welcome to the <strong>Feecard Automation Tool</strong> — a lightweight interface designed to simplify
@@ -16,6 +16,7 @@ const HomePage = () => {
       </ul>
       <p className="dashboard-note">
         This tool ensures updates are <em>fast</em>, <em>auditable</em>, and <em>low-risk</em>.
+        You can find detailed instructions on the Instruction page.
       </p>
     </div>
   );
