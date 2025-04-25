@@ -9,7 +9,8 @@ const CsvUpload = () => {
 
   const submitEndpoint = 'https://nmji2zb182.execute-api.ap-southeast-2.amazonaws.com/FeecardAPI/FeecardUpload';
   const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-  console.log(apiKey);
+
+  if (!apiKey) console.warn("Missing API key to call endpoint!");
 
   const submitCsv = async () => {
     if (!csvFile) return;
@@ -24,6 +25,7 @@ const CsvUpload = () => {
         {
           headers: {
             'Content-Type': 'text/csv',
+            'x-api-key': apiKey ?? ''
           }
         }
       );
