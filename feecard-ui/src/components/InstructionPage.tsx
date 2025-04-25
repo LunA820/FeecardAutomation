@@ -12,6 +12,8 @@ const InstructionPage = () => {
   return (
     <div className="instruction-container">
       <h1 className="page-title">Feecard Template Format</h1>
+      <div className="section-divider"></div>
+
       <p className="instruction-subtitle">
         This template defines how interest rates vary by credit category and loan term.
       </p>
@@ -20,7 +22,6 @@ const InstructionPage = () => {
         Download Template
       </button>
 
-      <div className="section-divider"></div>
 
       <p>
         The feecard CSV template defines interest rates for different <strong>loan terms</strong> and <strong>credit categories</strong>.
